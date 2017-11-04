@@ -23,11 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3n1xxp)i%8xrf94p^p83ga0b!nq$h)!#-weajzyk60-bir&uqy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'stark-waters-90707.herokuapp.com',
     'savemy.news',
+    'www.savemy.news'
 ]
 
 
