@@ -37,6 +37,9 @@ class Clip(models.Model):
     class Meta:
         ordering = ("-memento__timestamp",)
 
+    def __unicode__(self):
+        return self.url
+
     @property
     def timestamp(self):
         return self.memento.timestamp
