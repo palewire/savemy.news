@@ -6,3 +6,6 @@ body {
 header {
     margin: 0 0 10px 0;
 }
+.fb_iframe_widget span {
+    vertical-align: baseline !important;
+}
