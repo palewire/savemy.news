@@ -4,9 +4,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Save My News{% endblock %}</title>
+
+    <meta property="og:title" content="Save My News">
+    <meta property="og:description" content="A personal, permanent clipping service.">
     <meta property="og:image" content="//www.savemy.news{% static 'archive/img/share.png' %}">
     <meta name="twitter:image" content="//www.savemy.news{% static 'archive/img/share.png' %}">
+    <meta property="og:url" content="//www.savemy.news">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:site_name" content="Save My News">
+
     <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'archive/css/site.css' %}?rev=4" rel="stylesheet">
     {% block extra-head %}
