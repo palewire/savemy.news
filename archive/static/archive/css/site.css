@@ -9,3 +9,6 @@ header {
 .fb_iframe_widget span {
     vertical-align: baseline !important;
 }
+.share {
+    margin-top: 20px;
+}
