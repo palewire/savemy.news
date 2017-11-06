@@ -9,7 +9,7 @@ Requirements:
 
 * Python
 * PostgreSQL
-* virtualenv
+* virtualenv or virtualenvwrapper
 * Git
 
 Create a virtualenv to store the codebase.
