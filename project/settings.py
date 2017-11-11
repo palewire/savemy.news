@@ -9,18 +9,9 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3n1xxp)i%8xrf94p^p83ga0b!nq$h)!#-weajzyk60-bir&uqy'
 
 
 ALLOWED_HOSTS = [
@@ -148,6 +139,7 @@ LOGGING = {
 try:
     from settings_dev import *
     DEBUG = True
+    SECRET_KEY = 'this is not a cigar'
 except ImportError:
     DATABASES = {
         'default': {}
@@ -157,3 +149,4 @@ except ImportError:
     DATABASES['default'].update(db_from_env)
     DEBUG = False
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    SECRET_KEY = os.getenv("SECRET_KEY")
