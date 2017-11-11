@@ -14,6 +14,7 @@ Requirements:
 Create a virtualenv to store the codebase.
 
 ```bash
+# If you prefer virtualenv wrapper, pyenv, conda, whatever, use that here instead of course
 $ virtualenv savemy.news
 ```
 
