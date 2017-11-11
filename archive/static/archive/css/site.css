@@ -21,6 +21,10 @@ header {
 .table {
     margin-top: 30px;
 }
+.table th,
+.table td {
+    white-space: nowrap;
+}
 .table .tfoot td {
     padding-top: 10px;
     font-size: 12px;

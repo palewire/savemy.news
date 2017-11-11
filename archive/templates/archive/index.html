@@ -38,7 +38,7 @@
                 {% for obj in clip_list %}
                     <tr>
                         <td><a href="{{ obj.url }}">{{ obj.url|truncatechars:75 }}</a></td>
-                        <td>{{ obj.memento.timestamp|date:"N j, Y" }}</td>
+                        <td class="timestamp">{{ obj.memento.timestamp|date:"N j, Y" }}</td>
                         <td>{{ obj.memento.url|urlizetrunc:30 }}</td>
                         <td>
                             <i class="fa fa-trash"
