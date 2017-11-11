@@ -16,6 +16,33 @@ def index(request):
     return render(request, "archive/index.html", context)
 
 
+def delete(request):
+    clip_id = request.POST.get("id", None)
+    if not clip_id:
+        logger.debug("No id")
+        return HttpResponseBadRequest("Bad request: Clip ID not found")
+
+    user = request.user
+    if not user.is_authenticated():
+        logger.debug("User not authenticated")
+        return HttpResponseBadRequest("Bad request: User not authenticated")
+
+    try:
+        clip = Clip.objects.get(id=clip_id)
+    except Clip.DoesNotExist:
+        logger.debug("Clip {} does not exist".format(clip_id))
+        return HttpResponseBadRequest("Bad request: Clip ID does not exist")
+
+    if clip.user != user:
+        logger.debug("Authenticated user is not owner of clip")
+        return HttpResponseBadRequest("Bad request: User does not own clip")
+
+    logger.debug("Deleting {} for {}".format(clip, user))
+    clip.delete()
+
+    return redirect("/")
+
+
 def save(request):
     url = request.POST.get("url", None)
     if not url:

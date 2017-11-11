@@ -15,3 +15,6 @@ header {
 .form-control, .btn {
     border-radius: 0;
 }
+.fa-trash {
+    cursor: pointer;
+}

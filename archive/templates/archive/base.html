@@ -19,6 +19,7 @@
 
     {% block css %}
     <link href="{% static 'archive/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'archive/css/font-awesome.min.css' %}" rel="stylesheet">
     <link href="{% static 'archive/css/site.css' %}?rev=6" rel="stylesheet">
     {% endblock %}
 
@@ -31,7 +32,14 @@
         {% block content %}
         {% endblock %}
     </div>
+    {% block js %}
     <script src="{% static 'archive/js/ie10-viewport-bug-workaround.js' %}"></script>
+    <script src="{% static 'archive/js/jquery-3.1.1.slim.min.js' %}"></script>
+    <script src="{% static 'archive/js/tether.min.js' %}"></script>
+    <script src="{% static 'archive/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
     {% include "archive/includes/twitter.html" %}
+    {% block body-bottom %}
+    {% endblock %}
   </body>
 </html>

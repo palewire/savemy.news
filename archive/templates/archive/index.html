@@ -31,14 +31,24 @@
                     <th>URL</th>
                     <th>Archive time</th>
                     <th>Archive URL</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                 {% for obj in clip_list %}
                     <tr>
-                        <td>{{ obj.url|urlize }}</td>
+                        <td><a href="{{ obj.url }}">{{ obj.url|truncatechars:75 }}</a></td>
                         <td>{{ obj.memento.timestamp }}</td>
                         <td>{{ obj.memento.url|urlizetrunc:30 }}</td>
+                        <td>
+                            <i class="fa fa-trash"
+                               aria-hidden="true"
+                               data-toggle="modal"
+                               data-target="#trashModal"
+                               data-id="{{ obj.id }}"
+                               data-url="{{ obj.url }}"
+                               data-archive-url="{{ obj.memento.url }}"></i>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -57,4 +67,43 @@
         </section>
     </section>
 </article>
+{% endblock %}
+
+{% block body-bottom %}
+<div class="modal fade" id="trashModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'delete' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+              <p>
+                  If you delete this clip, it will disappear from your private list
+                  but remain <a href="" target="_blank">within the Internet Archive</a>.
+              </p>
+              <input type="hidden" name="id">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No thanks</button>
+            <button type="submit" class="btn btn-primary">Yes, I'm sure</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+    $('#trashModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var id = button.data('id');
+      var archiveUrl = button.data('archive-url');
+      var modal = $(this);
+      modal.find('.modal-body a').attr({"href": archiveUrl});
+      modal.find('.modal-body input').val(id);
+    })
+</script>
 {% endblock %}
