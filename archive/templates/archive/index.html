@@ -29,7 +29,7 @@
                 <thead>
                   <tr>
                     <th>URL</th>
-                    <th>Archive time</th>
+                    <th>Archive date</th>
                     <th>Archive URL</th>
                     <th></th>
                   </tr>
@@ -38,7 +38,7 @@
                 {% for obj in clip_list %}
                     <tr>
                         <td><a href="{{ obj.url }}">{{ obj.url|truncatechars:75 }}</a></td>
-                        <td>{{ obj.memento.timestamp }}</td>
+                        <td>{{ obj.memento.timestamp|date:"N j, Y" }}</td>
                         <td>{{ obj.memento.url|urlizetrunc:30 }}</td>
                         <td>
                             <i class="fa fa-trash"
