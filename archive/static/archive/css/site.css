@@ -12,3 +12,6 @@ header {
 .share {
     margin-top: 20px;
 }
+.form-control, .btn {
+    border-radius: 0;
+}
