@@ -49,6 +49,8 @@ Visit [apps.twitter.com](http://apps.twitter.com) and create a new application.
 
 Set the callback URL setting as `http://localhost:8000/oauth/complete/twitter/`.
 
+![twitter](archive/static/archive/img/twitter.png)
+
 Retrieve the two secret keys and add them to your `settings_dev.py` file.
 
 ```python
