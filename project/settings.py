@@ -22,8 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '3n1xxp)i%8xrf94p^p83ga0b!nq$h)!#-weajzyk60-bir&uqy'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = [
     'stark-waters-90707.herokuapp.com',
@@ -97,13 +95,17 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {}
-}
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+try:
+    from settings_dev import *
+    DEBUG = True
+except ImportError:
+    DATABASES = {
+        'default': {}
+    }
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    DEBUG = False
 
 
 # Password validation

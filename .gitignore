@@ -1,3 +1,4 @@
 *.pyc
 .static
 *.sqlite3
+project/settings_dev.py
