@@ -1,6 +1,6 @@
 # Save My News
 
-A personal, permanent clipping service.
+A personal, permanent clipping service at [savemy.news](http://savemy.news/)
 
 ### Getting started
 
