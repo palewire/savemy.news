@@ -25,7 +25,7 @@
             </div>
         </form>
         {% if clip_list %}
-            <table class="table table-sm">
+            <table class="table table-sm table-responsive">
                 <thead>
                   <tr>
                     <th>URL</th>
@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{ obj.url|urlize }}</td>
                         <td>{{ obj.memento.timestamp }}</td>
-                        <td>{{ obj.memento.url|urlizetrunc:30    }}</td>
+                        <td>{{ obj.memento.url|urlizetrunc:30 }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
