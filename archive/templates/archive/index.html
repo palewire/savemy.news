@@ -52,20 +52,15 @@
                     </tr>
                 {% endfor %}
                 </tbody>
+                <tfoot class="tfoot">
+                    <tr>
+                        <td><a href="{% url 'download' %}">Download <i class="fa fa-download" aria-hidden="true"></i></a></td>
+                    <tr>
+                <tfoot>
             </table>
         {% endif %}
     </section>
     {% endif %}
-    <section class="row share">
-        <section class="col-sm-12 col-md-2 col-lg-1">
-            <div class="fb-share-button" data-href="http://www.savemy.news/" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.savemy.news%2F&amp;src=sdkpreparse">Share</a></div>
-        </section>
-        <section class="col-sm-12 col-md-2 col-lg-1">
-            <a class="twitter-share-button"
-              href="https://twitter.com/intent/tweet">
-            Tweet</a>
-        </section>
-    </section>
 </article>
 {% endblock %}
 

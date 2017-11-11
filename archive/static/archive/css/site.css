@@ -18,3 +18,14 @@ header {
 .fa-trash {
     cursor: pointer;
 }
+.table .tfoot td {
+    padding-top: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.table .tfoot td a {
+    color: black;
+}
+.table .tfoot td a:hover i {
+    text-decoration: underline;
+}

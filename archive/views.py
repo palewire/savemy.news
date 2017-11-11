@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import csv
 import logging
 import savepagenow
 from .models import Clip, Memento
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
 logger = logging.getLogger(__name__)
@@ -14,6 +16,23 @@ def index(request):
         clip_list = Clip.objects.filter(user=request.user).select_related("memento")
         context = {"clip_list": clip_list}
     return render(request, "archive/index.html", context)
+
+
+def download(request):
+    user = request.user
+    if not user.is_authenticated():
+        logger.debug("User not authenticated")
+        return HttpResponseBadRequest("Bad request: User not authenticated")
+
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="clips.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['id', 'url', 'timestamp', 'archive_url'])
+    clip_list = Clip.objects.filter(user=request.user).select_related("memento")
+    for clip in clip_list:
+        writer.writerow([clip.id, clip.url, str(clip.memento.timestamp), clip.memento.url])
+    return response
 
 
 def delete(request):

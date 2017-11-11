@@ -20,14 +20,13 @@
     {% block css %}
     <link href="{% static 'archive/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'archive/css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static 'archive/css/site.css' %}?rev=7" rel="stylesheet">
+    <link href="{% static 'archive/css/site.css' %}?rev={% now 'c' %}" rel="stylesheet">
     {% endblock %}
 
     {% block extra-head %}
     {% endblock %}
   </head>
   <body>
-    {% include "archive/includes/facebook.html" %}
     <div class="container">
         {% block content %}
         {% endblock %}
@@ -38,7 +37,6 @@
     <script src="{% static 'archive/js/tether.min.js' %}"></script>
     <script src="{% static 'archive/js/bootstrap.min.js' %}"></script>
     {% endblock %}
-    {% include "archive/includes/twitter.html" %}
     {% block body-bottom %}
     {% endblock %}
   </body>
