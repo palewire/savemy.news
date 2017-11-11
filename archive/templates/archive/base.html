@@ -4,8 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>{% block title %}Save My News{% endblock %}</title>
 
+    {% block extra meta %}
     <meta property="og:title" content="Save My News">
     <meta property="og:description" content="A personal, permanent clipping service.">
     <meta property="og:image" content="//www.savemy.news{% static 'archive/img/share.png' %}">
@@ -13,41 +15,23 @@
     <meta property="og:url" content="//www.savemy.news">
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:site_name" content="Save My News">
+    {% endblock %}
 
-    <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% block css %}
+    <link href="{% static 'archive/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'archive/css/site.css' %}?rev=5" rel="stylesheet">
+    {% endblock %}
+
     {% block extra-head %}
     {% endblock %}
   </head>
   <body>
-      <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10&appId=202195166508802';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+    {% include "archive/includes/facebook.html" %}
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
-    <script src="https://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));</script>
+    <script src="{% static 'archive/js/ie10-viewport-bug-workaround.js' %}"></script>
+    {% include "archive/includes/twitter.html" %}
   </body>
 </html>

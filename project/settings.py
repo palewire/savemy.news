@@ -92,22 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-try:
-    from settings_dev import *
-    DEBUG = True
-except ImportError:
-    DATABASES = {
-        'default': {}
-    }
-    import dj_database_url
-    db_from_env = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
-    DEBUG = False
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -129,28 +113,20 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_ROOT = os.path.join(BASE_DIR, '.static')
 STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
+# Logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -166,3 +142,18 @@ LOGGING = {
         },
     },
 }
+
+
+# ENV specific settings
+try:
+    from settings_dev import *
+    DEBUG = True
+except ImportError:
+    DATABASES = {
+        'default': {}
+    }
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    DEBUG = False
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
