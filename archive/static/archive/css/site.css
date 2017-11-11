@@ -29,3 +29,8 @@ header {
 .table .tfoot td a:hover i {
     text-decoration: underline;
 }
+@media (max-width: 420px) {
+    body {
+        padding-top: 15px;
+    }
+}
