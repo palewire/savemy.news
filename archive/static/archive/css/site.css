@@ -18,6 +18,9 @@ header {
 .fa-trash {
     cursor: pointer;
 }
+.table {
+    margin-top: 30px;
+}
 .table .tfoot td {
     padding-top: 10px;
     font-size: 12px;
