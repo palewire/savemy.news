@@ -54,7 +54,7 @@ SOCIAL_AUTH_TWITTER_KEY = ''
 SOCIAL_AUTH_TWITTER_SECRET = ''
 ```
 
-Create a local database
+Create a local database.
 
 ```bash
 $ python manage.py migrate
