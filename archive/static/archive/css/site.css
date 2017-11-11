@@ -24,6 +24,9 @@ header {
 .table {
     margin-top: 30px;
 }
+.table td {
+    padding-right: 15px;
+}
 .table th,
 .table td {
     white-space: nowrap;
