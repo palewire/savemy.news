@@ -51,11 +51,13 @@ Set the callback URL setting as `http://localhost:8000/oauth/complete/twitter/`.
 
 ![twitter](archive/static/archive/img/twitter.png)
 
-Retrieve the two secret keys and add them to your `settings_dev.py` file.
+Go to the "Keys and Access Tokens" tab.
+
+Copy the two secret keys and add them to your `settings_dev.py` file.
 
 ```python
-SOCIAL_AUTH_TWITTER_KEY = ''
-SOCIAL_AUTH_TWITTER_SECRET = ''
+SOCIAL_AUTH_TWITTER_KEY = '<Consumer Key (API Key) goes here>'
+SOCIAL_AUTH_TWITTER_SECRET = '<Consumer Secret (API Secret) goes here>'
 ```
 
 Create a local database.
