@@ -44,6 +44,13 @@ Create a copy of a local settings file for your development environment.
 $ cp project/settings_dev.py.tmpl project/settings_dev.py
 ```
 
+Visit [apps.twitter.com](http://apps.twitter.com) and create a new application. Set the callback URL setting as `http://localhost:8000/oauth/complete/twitter/`. Retrieve the two secret keys and add them to your `settings_dev.py` file.
+
+```python
+SOCIAL_AUTH_TWITTER_KEY = ''
+SOCIAL_AUTH_TWITTER_SECRET = ''
+```
+
 Create a local database
 
 ```bash
