@@ -23,6 +23,7 @@ p.username {
 }
 .fa-trash {
     cursor: pointer;
+    padding-left: 5px;
 }
 .save {
     padding-left: 0;
