@@ -40,5 +40,14 @@
     {% endblock %}
     {% block body-bottom %}
     {% endblock %}
+    {% block footer %}
+    <footer class="footer">
+       <div class="container">
+         <span class="text-muted">© {% now "Y" %} til infinity <a href="http://www.pastpages.org">PastPages</a>.
+             Gratis, libre and fermented on <a href="https://github.com/pastpages/savemy.news">GitHub</a>
+         </span>
+       </div>
+     </footer>
+    {% endblock %}
   </body>
 </html>
