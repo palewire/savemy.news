@@ -8,6 +8,8 @@ header {
 }
 p.username {
     margin-bottom: 0.5rem;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 .fb_iframe_widget span {
     vertical-align: baseline !important;
