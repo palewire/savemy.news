@@ -7,5 +7,6 @@ register = template.Library()
 def trimurl(value):
     value = value.replace("http://", "")
     value = value.replace("https://", "")
-    value = truncatechars(value, 70)
+    value = value.replace("www.", "")
+    value = truncatechars(value, 65)
     return value
