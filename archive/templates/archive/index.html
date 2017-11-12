@@ -1,4 +1,5 @@
 {% extends "archive/base.html" %}
+{% load staticfiles archive_tags %}
 
 {% block content %}
 <article>
@@ -28,7 +29,7 @@
             <table class="table table-sm table-responsive">
                 <thead>
                   <tr>
-                    <th>URL</th>
+                    <th>Source URL</th>
                     <th>Archive date</th>
                     <th>Archive URL</th>
                     <th></th>
@@ -37,9 +38,10 @@
                 <tbody>
                 {% for obj in clip_list %}
                     <tr>
-                        <td><a href="{{ obj.url }}">{{ obj.url|truncatechars:75 }}</a></td>
+                        <td><a href="{{ obj.url }}">{{ obj.url|trimurl }}</a></td>
                         <td class="timestamp">{{ obj.memento.timestamp|date:"N j, Y" }}</td>
-                        <td>{{ obj.memento.url|urlizetrunc:30 }}</td>
+                        <td>
+                            <a href="{{ obj.memento.url }}">{{ obj.memento.get_archive_display }}</a>
                         <td>
                             <i class="fa fa-trash"
                                aria-hidden="true"
