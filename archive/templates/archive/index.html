@@ -9,7 +9,7 @@
     </header>
     {% if not user.is_authenticated %}
     <section>
-        <p>Sign in with <a href="{% url "social:begin" "twitter" %}?next={{ request.path }}">Twitter</a> and start saving your work.</p>
+        <p><a href="{% url "social:begin" "twitter" %}?next={{ request.path }}">Sign in with Twitter</a> and start saving your work.</p>
     </section>
     {% else %}
     <section>
