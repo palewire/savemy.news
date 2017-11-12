@@ -41,7 +41,7 @@
                 {% for obj in clip_list %}
                     <tr>
                         <td><a href="{{ obj.url }}">{{ obj.url|trimurl }}</a></td>
-                        <td class="timestamp">{{ obj.memento.timestamp|date:"N j, Y" }}</td>
+                        <td class="timestamp">{{ obj.memento.timestamp|date:"N d, Y" }}</td>
                         <td>
                             <a href="{{ obj.memento.url }}">{{ obj.memento.get_archive_display }}</a>
                         <td>
