@@ -6,11 +6,17 @@ body {
 header {
     margin: 0 0 30px 0;
 }
+p.username {
+    margin-bottom: 0.5rem;
+}
 .fb_iframe_widget span {
     vertical-align: baseline !important;
 }
 .share {
     margin-top: 20px;
+}
+.form-control {
+    padding-left: 0.25rem;
 }
 .form-control, .btn {
     border-radius: 0;

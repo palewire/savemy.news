@@ -13,7 +13,7 @@
     </section>
     {% else %}
     <section>
-        <p>Hello, {{ user }}. (<a href="{% url "logout" %}?next={{ request.path }}">Logout</a>)</p>
+        <p class="username">Hello, {{ user }}. (<a href="{% url "logout" %}?next={{ request.path }}">Logout</a>)</p>
         <form action="{% url 'save' %}" method="POST">
             {% csrf_token %}
             <div class="form-group row">
