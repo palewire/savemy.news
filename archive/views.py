@@ -103,18 +103,6 @@ def save(request):
     #     logger.debug("Archive.is failed")
     #     logging.error(e)
 
-    # Try to add webcitation
-    # Since these archives below are optional, we will not throw errors if they fail
-    # logger.debug("Archiving {} for {} to webcitation".format(url, user))
-    # try:
-    #     wc_url = webcitation.capture(url)
-    #     logger.debug("Saving memento URL {}".format(wc_url))
-    #     wc_memento = Memento.objects.create(url=wc_url, archive="webcitation.org")
-    #     mementos.append(wc_memento)
-    # except Exception as e:
-    #     logger.debug("webcitation failed")
-    #     logging.error(e)
-
     # Write it all to the database
     clip = Clip.objects.create(
         user=user,
