@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import csv
 import logging
 import archiveis
+import webcitation
 import savepagenow
 from .models import Clip, Memento
 from django.http import HttpResponse
@@ -84,7 +85,7 @@ def save(request):
         ia_url, ia_captured = savepagenow.capture_or_cache(url)
         logger.debug("Saving memento URL {}".format(ia_url))
         ia_memento = Memento.objects.create(url=ia_url, archive="archive.org")
-    except savepagenow.api.BlockedByRobots:
+    except Exception as e:
         return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
 
     # Create a list for all mementos, where we can add the optional extra ones below
@@ -101,6 +102,18 @@ def save(request):
     # except Exception as e:
     #     logger.debug("Archive.is failed")
     #     logging.error(e)
+
+    # Try to add webcitation
+    # Since these archives below are optional, we will not throw errors if they fail
+    logger.debug("Archiving {} for {} to webcitation".format(url, user))
+    try:
+        wc_url = webcitation.capture(url)
+        logger.debug("Saving memento URL {}".format(wc_url))
+        wc_memento = Memento.objects.create(url=wc_url, archive="webcitation.org")
+        mementos.append(wc_memento)
+    except Exception as e:
+        logger.debug("webcitation failed")
+        logging.error(e)
 
     # Write it all to the database
     clip = Clip.objects.create(
