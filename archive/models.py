@@ -36,7 +36,6 @@ class Memento(models.Model):
 class Clip(models.Model):
     user = models.ForeignKey(User)
     url = models.URLField(max_length=1000)
-    memento = models.ForeignKey(Memento, related_name="old_memento", null=True)
     mementos = models.ManyToManyField(Memento)
 
     def __str__(self):
