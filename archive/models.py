@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Memento(models.Model):
     timestamp = models.DateTimeField(
         db_index=True,
@@ -25,10 +27,11 @@ class Memento(models.Model):
     class Meta:
         ordering = ("-timestamp",)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.url
 
 
+@python_2_unicode_compatible
 class Clip(models.Model):
     user = models.ForeignKey(User)
     url = models.URLField()
@@ -38,7 +41,7 @@ class Clip(models.Model):
     class Meta:
         ordering = ("-memento__timestamp",)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.url
 
     @property
