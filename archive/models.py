@@ -32,7 +32,8 @@ class Memento(models.Model):
 class Clip(models.Model):
     user = models.ForeignKey(User)
     url = models.URLField()
-    memento = models.ForeignKey(Memento)
+    memento = models.ForeignKey(Memento, related_name="old_memento")
+    mementos = models.ManyToManyField(Memento)
 
     class Meta:
         ordering = ("-memento__timestamp",)
