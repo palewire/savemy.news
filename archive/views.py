@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import csv
 import logging
 import savepagenow
-from archivenow import archivenow
+# from archivenow import archivenow
 from .models import Clip, Memento
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -83,15 +83,15 @@ def save(request):
     except savepagenow.api.BlockedByRobots:
         return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
 
-    is_url = archivenow.push(url, "is")[0]
-    logger.debug("Saving memento URL {}".format(is_url))
-    is_memento = Memento.objects.create(url=is_url, archive="archive.is")
+    # is_url = archivenow.push(url, "is")[0]
+    # logger.debug("Saving memento URL {}".format(is_url))
+    # is_memento = Memento.objects.create(url=is_url, archive="archive.is")
 
     clip = Clip.objects.create(
         user=user,
         url=url
     )
     clip.mementos.add(ia_memento)
-    clip.mementos.add(is_memento)
+    # clip.mementos.add(is_memento)
     clip.save()
     return redirect("/")
