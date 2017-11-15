@@ -43,8 +43,14 @@ class Clip(models.Model):
 
     @property
     def timestamp(self):
-        return self.mementos.get(archive="archive.org").timestamp
         try:
             return self.mementos.get(archive="archive.org").timestamp
         except Memento.DoesNotExist:
             return self.mementos.latest().timestamp
+
+    @property
+    def ia_memento(self):
+        try:
+            return self.mementos.get(archive="archive.org")
+        except Memento.DoesNotExist:
+            return None
