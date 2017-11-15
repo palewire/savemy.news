@@ -67,15 +67,19 @@ def delete(request):
 
 
 def save(request):
+    # Verify there is a URL to save
     url = request.POST.get("url", None)
     if not url:
         return HttpResponseBadRequest("Bad request")
 
+    # Verify the user is logged in
     user = request.user
     if not user.is_authenticated():
         return HttpResponseBadRequest("Bad request")
 
-    logger.debug("Archiving {} for {}".format(url, user))
+    # Sent URL to Internet Archive
+    # This is required so we throw an error if it fails
+    logger.debug("Archiving {} for {} to IA".format(url, user))
     try:
         ia_url, ia_captured = savepagenow.capture_or_cache(url)
         logger.debug("Saving memento URL {}".format(ia_url))
@@ -83,15 +87,27 @@ def save(request):
     except savepagenow.api.BlockedByRobots:
         return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
 
-    # is_url = archiveis.capture(url)
-    # logger.debug("Saving memento URL {}".format(is_url))
-    # is_memento = Memento.objects.create(url=is_url, archive="archive.is")
+    # Create a list for all mementos, where we can add the optional extra ones below
+    mementos = [ia_memento,]
 
+    # Try to add archive.is
+    # Since these archives below are optional, we will not throw errors if they fail
+    logger.debug("Archiving {} for {} to IS".format(url, user))
+    try:
+        is_url = archiveis.capture(url)
+        logger.debug("Saving memento URL {}".format(is_url))
+        is_memento = Memento.objects.create(url=is_url, archive="archive.is")
+        mementos.append(is_memento)
+    except Exception as e:
+        logger.debug("Archive.is failed")
+        logging.error(e)
+
+    # Write it all to the database
     clip = Clip.objects.create(
         user=user,
         url=url
     )
-    clip.mementos.add(ia_memento)
-    # clip.mementos.add(is_memento)
-    clip.save()
+    clip.mementos.add(*mementos)
+
+    # Head back where the user started
     return redirect("/")
