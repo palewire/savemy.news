@@ -1,8 +1,23 @@
 import logging
+import archiveis
 import webcitation
 from celery.decorators import task
 from archive.models import Memento, Clip
 logger = logging.getLogger(__name__)
+
+
+@task()
+def is_memento(clip_id):
+    clip = Clip.objects.get(id=clip_id)
+    logger.debug("Archiving {} with archive.is".format(clip.url))
+    try:
+        is_url = archiveis.capture(clip.url)
+        is_memento = Memento.objects.create(url=is_url, archive="archive.is")
+        logger.debug("Created {}".format(is_memento))
+        clip.mementos.add(is_memento)
+    except Exception as e:
+        logger.debug("archive.is failed")
+        logger.debug(e)
 
 
 @task()
