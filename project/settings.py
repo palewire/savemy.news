@@ -60,7 +60,6 @@ SOCIAL_AUTH_TWITTER_SECRET = os.getenv("SOCIAL_AUTH_TWITTER_SECRET")
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'index'
 
-
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
@@ -109,6 +108,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+
+CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+CELERY_RESULT_BACKEND = os.getenv('REDIS_URL', 'redis://localhost:6379')
+
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
 
 
 # Static files (CSS, JavaScript, Images)
