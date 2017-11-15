@@ -26,6 +26,7 @@ class Memento(models.Model):
 
     class Meta:
         ordering = ("-timestamp",)
+        get_latest_by = 'timestamp'
 
     def __str__(self):
         return self.url
@@ -38,12 +39,13 @@ class Clip(models.Model):
     memento = models.ForeignKey(Memento, related_name="old_memento", null=True)
     mementos = models.ManyToManyField(Memento)
 
-    class Meta:
-        ordering = ("-memento__timestamp",)
-
     def __str__(self):
         return self.url
 
     @property
     def timestamp(self):
-        return self.memento.timestamp
+        return self.mementos.get(archive="archive.org").timestamp
+        try:
+            return self.mementos.get(archive="archive.org").timestamp
+        except Memento.DoesNotExist:
+            return self.mementos.latest().timestamp
