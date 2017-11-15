@@ -5,6 +5,7 @@ import logging
 import archiveis
 import webcitation
 import savepagenow
+from archive import tasks
 from .models import Clip, Memento
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -88,27 +89,15 @@ def save(request):
     except Exception as e:
         return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
 
-    # Create a list for all mementos, where we can add the optional extra ones below
-    mementos = [ia_memento,]
-
-    # # Try to add archive.is
-    # # Since these archives below are optional, we will not throw errors if they fail
-    # logger.debug("Archiving {} for {} to IS".format(url, user))
-    # try:
-    #     is_url = archiveis.capture(url)
-    #     logger.debug("Saving memento URL {}".format(is_url))
-    #     is_memento = Memento.objects.create(url=is_url, archive="archive.is")
-    #     mementos.append(is_memento)
-    # except Exception as e:
-    #     logger.debug("Archive.is failed")
-    #     logging.error(e)
-
     # Write it all to the database
     clip = Clip.objects.create(
         user=user,
         url=url
     )
-    clip.mementos.add(*mementos)
+    clip.mementos.add(ia_memento)
+
+    # Queue up background tasks to add mirrors
+    tasks.wc_memento.delay(clip.id)
 
     # Head back where the user started
     return redirect("/")
