@@ -12,8 +12,8 @@ def wc_memento(clip_id):
     try:
         wc_url = webcitation.capture(clip.url)
         wc_memento = Memento.objects.create(url=wc_url, archive="webcitation.org")
+        logger.debug("Created {}".format(wc_memento))
         clip.mementos.add(wc_memento)
-        return wc_memento
     except Exception as e:
         logger.debug("webcitation failed")
         logger.debug(e)
