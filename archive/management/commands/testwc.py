@@ -7,4 +7,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         clip = Clip.objects.all()[0]
-        tasks.wc_memento.delay(clip.id)
+        tasks.wc_memento(clip.id)
