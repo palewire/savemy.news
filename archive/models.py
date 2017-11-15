@@ -22,7 +22,7 @@ class Memento(models.Model):
         db_index=True,
         default=ARCHIVE_CHOICES[0][0],
     )
-    url = models.URLField()
+    url = models.URLField(max_length=1000)
 
     class Meta:
         ordering = ("-timestamp",)
@@ -35,7 +35,7 @@ class Memento(models.Model):
 @python_2_unicode_compatible
 class Clip(models.Model):
     user = models.ForeignKey(User)
-    url = models.URLField()
+    url = models.URLField(max_length=1000)
     memento = models.ForeignKey(Memento, related_name="old_memento", null=True)
     mementos = models.ManyToManyField(Memento)
 
