@@ -81,7 +81,8 @@ def save(request):
     memento = Memento.objects.create(url=memento_url)
     clip = Clip.objects.create(
         user=user,
-        url=url,
-        memento=memento,
+        url=url
     )
+    clip.mementos.add(memento)
+    clip.save()
     return redirect("/")
