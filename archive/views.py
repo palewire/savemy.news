@@ -97,7 +97,10 @@ def save(request):
     clip.mementos.add(ia_memento)
 
     # Queue up background tasks to add mirrors
-    tasks.wc_memento.delay(clip.id)
+    try:
+        tasks.wc_memento.delay(clip.id)
+    except:
+        pass
 
     # Head back where the user started
     return redirect("/")
