@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def index(request):
     context = {}
     if request.user.is_authenticated():
-        clip_list = Clip.objects.filter(user=request.user).select_related("memento")
+        clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
         context = {"clip_list": clip_list}
     return render(request, "archive/index.html", context)
 
@@ -28,10 +28,13 @@ def download(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="clips.csv"'
     writer = csv.writer(response)
-    writer.writerow(['id', 'url', 'timestamp', 'archive_url'])
-    clip_list = Clip.objects.filter(user=request.user).select_related("memento")
+    writer.writerow(['id', 'url', 'timestamp', 'archive_url', 'archive_url'])
+    clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
     for clip in clip_list:
-        writer.writerow([clip.id, clip.url, str(clip.memento.timestamp), clip.memento.url])
+        row = [clip.id, clip.url, clip.mementos.all()[0].timestamp]
+        for m in clip.mementos.all():
+            row.append(m.url)
+        writer.writerow(row)
     return response
 
 

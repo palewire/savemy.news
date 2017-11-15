@@ -33,7 +33,7 @@
                   <tr>
                     <th>Source URL</th>
                     <th>Archive date</th>
-                    <th>Archive URL</th>
+                    <th>Archive URLs</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -43,7 +43,9 @@
                         <td><a href="{{ obj.url }}">{{ obj.url|trimurl }}</a></td>
                         <td class="timestamp">{{ obj.memento.timestamp|date:"N d, Y" }}</td>
                         <td>
-                            <a href="{{ obj.memento.url }}">{{ obj.memento.get_archive_display }}</a>
+                            {% for memento in obj.mementos.all %}
+                                <a href="{{ memento.url }}">{{ memento.get_archive_display }}</a>{% if not forloop.last %},{% endif %}
+                            {% endfor %}
                         <td>
                             <i class="fa fa-trash"
                                aria-hidden="true"
