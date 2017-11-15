@@ -31,7 +31,7 @@ def download(request):
     writer.writerow(['id', 'url', 'timestamp', 'archive_url', 'archive_url'])
     clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
     for clip in clip_list:
-        row = [clip.id, clip.url, clip.mementos.all()[0].timestamp]
+        row = [clip.id, clip.url, clip.timestamp]
         for m in clip.mementos.all():
             row.append(m.url)
         writer.writerow(row)
@@ -75,7 +75,10 @@ def save(request):
         return HttpResponseBadRequest("Bad request")
 
     logger.debug("Archiving {} for {}".format(url, user))
-    memento_url, captured = savepagenow.capture_or_cache(url)
+    try:
+        memento_url, captured = savepagenow.capture_or_cache(url)
+    except savepagenow.api.BlockedByRobots:
+        return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
 
     logger.debug("Saving memento URL {}".format(memento_url))
     memento = Memento.objects.create(url=memento_url)
