@@ -12,10 +12,10 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    context = {}
+    context = {'clip_list': None}
     if request.user.is_authenticated():
         clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
-        context = {"clip_list": clip_list}
+        context['clip_list'] = clip_list
     return render(request, "archive/index.html", context)
 
 
