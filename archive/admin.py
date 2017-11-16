@@ -12,3 +12,4 @@ class ClipAdmin(admin.ModelAdmin):
 @admin.register(Memento)
 class MementoAdmin(admin.ModelAdmin):
     list_display = ("url", "timestamp",)
+    list_filter = ("archive",)
