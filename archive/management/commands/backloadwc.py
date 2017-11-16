@@ -8,5 +8,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         clip_list = Clip.objects.all()
         no_wc = [c for c in clip_list if not c.mementos.filter(archive="webcitation.org").count()]
-        for c in no_wc[:10]:
+        for c in no_wc[:50]:
             tasks.wc_memento.delay(c.id)
