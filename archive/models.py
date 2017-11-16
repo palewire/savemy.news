@@ -49,6 +49,10 @@ class Clip(models.Model):
             return self.mementos.latest().timestamp
 
     @property
+    def memento_count(self):
+        return self.mementos.count()
+
+    @property
     def ia_memento(self):
         try:
             return self.mementos.get(archive="archive.org")
