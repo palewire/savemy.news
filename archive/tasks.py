@@ -28,6 +28,9 @@ def wc_memento(clip_id):
     logger.debug("Archiving {} with webcitation".format(clip.url))
     try:
         wc_url = webcitation.capture(clip.url)
+        if wc_url == clip.url:
+            logger.debug("Source URL returned for some reason.")
+            return None
         wc_memento = Memento.objects.create(url=wc_url, archive="webcitation.org")
         logger.debug("Created {}".format(wc_memento))
         clip.mementos.add(wc_memento)
