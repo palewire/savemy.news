@@ -1,5 +1,5 @@
 amqp==2.2.2
-archiveis==0.0.4
+-e git+https://github.com/pastpages/archiveis.git@HEAD#egg=archiveis
 archivenow==2017.11.12.10.6.44
 billiard==3.5.0.3
 celery==4.1.0
