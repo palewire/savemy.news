@@ -1,5 +1,6 @@
 amqp==2.2.2
 archiveis==0.0.4
+archivenow==2017.11.12.10.6.44
 billiard==3.5.0.3
 celery==4.1.0
 certifi==2017.7.27.1

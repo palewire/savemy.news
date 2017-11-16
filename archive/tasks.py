@@ -10,8 +10,10 @@ logger = logging.getLogger(__name__)
 def is_memento(clip_id):
     clip = Clip.objects.get(id=clip_id)
     logger.debug("Archiving {} with archive.is".format(clip.url))
+    from archivenow import archivenow
     try:
-        is_url = archiveis.capture(clip.url)
+        # is_url = archiveis.capture(clip.url)
+        is_url = archivenow.push(clip.url, "is")[0]
         is_memento = Memento.objects.create(url=is_url, archive="archive.is")
         logger.debug("Created {}".format(is_memento))
         clip.mementos.add(is_memento)

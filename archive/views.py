@@ -90,10 +90,7 @@ def save(request):
         return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
 
     # Write it all to the database
-    clip = Clip.objects.create(
-        user=user,
-        url=url
-    )
+    clip = Clip.objects.create(user=user, url=url)
     clip.mementos.add(ia_memento)
 
     # Queue up background tasks to add mirrors
