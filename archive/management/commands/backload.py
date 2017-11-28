@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
+import logging
 from archive import tasks
 from archive.models import Clip
+logger.debug(__name__)
 
 
 class Command(BaseCommand):
