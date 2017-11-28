@@ -7,7 +7,7 @@ from .models import Clip, Memento
 @admin.register(Clip)
 class ClipAdmin(admin.ModelAdmin):
     list_display = ("url", "user", "timestamp", "memento_count")
-    search_fields = ("user", "url")
+    search_fields = ("url",)
     readonly_fields = ["user", "url", "mementos"]
 
 
@@ -15,6 +15,7 @@ class ClipAdmin(admin.ModelAdmin):
 class MementoAdmin(admin.ModelAdmin):
     list_display = ("url", "timestamp",)
     list_filter = ("archive",)
+    search_fields = ("url",)
     readonly_fields = ("url", "archive", "timestamp")
 
 
