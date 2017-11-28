@@ -94,6 +94,7 @@ def save(request):
 
     # Queue up background tasks to add mirrors
     try:
+        tasks.is_memento.delay(clip.id)
         tasks.wc_memento.delay(clip.id)
     except Exception as e:
         logger.error(e)
