@@ -20,4 +20,3 @@ class MementoAdmin(admin.ModelAdmin):
 
 admin.site.site_header = 'Save My News'
 admin.site.site_title = 'Save My News'
-admin.site.index_title = ''

@@ -1,6 +1,6 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from archive import tasks
-from archive.models import Clip, Memento
+from archive.models import Clip
 
 
 class Command(BaseCommand):

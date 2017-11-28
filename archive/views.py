@@ -2,8 +2,6 @@
 from __future__ import unicode_literals
 import csv
 import logging
-import archiveis
-import webcitation
 import savepagenow
 from archive import tasks
 from .models import Clip, Memento
@@ -87,7 +85,8 @@ def save(request):
         logger.debug("Saving memento URL {}".format(ia_url))
         ia_memento = Memento.objects.create(url=ia_url, archive="archive.org")
     except Exception as e:
-        return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org because of robots.txt restrictions")
+        logger.error(e)
+        return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org.")
 
     # Write it all to the database
     clip = Clip.objects.create(user=user, url=url)
@@ -96,7 +95,8 @@ def save(request):
     # Queue up background tasks to add mirrors
     try:
         tasks.wc_memento.delay(clip.id)
-    except:
+    except Exception as e:
+        logger.error(e)
         pass
 
     # Head back where the user started
