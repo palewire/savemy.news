@@ -20,6 +20,6 @@ class Command(BaseCommand):
         # Backload webcitation
         no_is = [c for c in clip_list if not c.mementos.filter(archive="archive.is").count()]
         logger.debug("{} clips lack an archive.is memento".format(len(no_is)))
-        for c in no_is[:25]:
+        for c in no_is[:50]:
             logger.debug("Backloading archive.is URL for {}".format(c.url))
             tasks.is_memento.delay(c.id)
