@@ -2,6 +2,8 @@
 
 A personal, permanent clipping service at [savemy.news](http://savemy.news/)
 
+[![Build Status](https://travis-ci.org/pastpages/savemy.news.svg?branch=master)](https://travis-ci.org/pastpages/savemy.news)
+
 ### Getting started
 
 Requirements:
