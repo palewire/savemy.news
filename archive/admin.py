@@ -16,3 +16,8 @@ class MementoAdmin(admin.ModelAdmin):
     list_display = ("url", "timestamp",)
     list_filter = ("archive",)
     readonly_fields = ("url", "archive", "timestamp")
+
+
+admin.site.site_header = 'Save My News'
+admin.site.site_title = 'Save My News'
+admin.site.index_title = ''
