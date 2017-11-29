@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import csv
 import logging
 import savepagenow
-from archive import tasks
 from .models import Clip, Memento
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
