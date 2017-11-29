@@ -92,13 +92,5 @@ def save(request):
     clip = Clip.objects.create(user=user, url=url)
     clip.mementos.add(ia_memento)
 
-    # Queue up background tasks to add mirrors
-    try:
-        tasks.is_memento.delay(clip.id)
-        tasks.wc_memento.delay(clip.id)
-    except Exception as e:
-        logger.error(e)
-        pass
-
     # Head back where the user started
     return redirect("/")
