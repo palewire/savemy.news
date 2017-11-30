@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        clip_list = Clip.objects.all()
+        clip_list = Clip.objects.all().order_by("?")
 
         # Backload webcitation
         no_wc = [c for c in clip_list if not c.mementos.filter(archive="webcitation.org").count()]

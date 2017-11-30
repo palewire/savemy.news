@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        clip_list = Clip.objects.all()
+        clip_list = Clip.objects.all().order_by("?")
 
         no_is = [c for c in clip_list if not c.mementos.filter(archive="archive.is").count()]
         logger.debug("{} clips lack an archive.is memento".format(len(no_is)))
