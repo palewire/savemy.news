@@ -34,7 +34,7 @@ class Memento(models.Model):
 
 @python_2_unicode_compatible
 class Clip(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.URLField(max_length=1000)
     mementos = models.ManyToManyField(Memento)
 

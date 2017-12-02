@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SECRET_KEY = os.getenv("SECRET_KEY", 'this is not a cigar')
 
 
 ALLOWED_HOSTS = [
@@ -151,7 +152,6 @@ LOGGING = {
 try:
     from settings_dev import *
     DEBUG = True
-    SECRET_KEY = 'this is not a cigar'
 except ImportError:
     DATABASES = {
         'default': {}
@@ -161,4 +161,3 @@ except ImportError:
     DATABASES['default'].update(db_from_env)
     DEBUG = False
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    SECRET_KEY = os.getenv("SECRET_KEY")
