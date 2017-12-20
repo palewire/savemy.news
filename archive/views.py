@@ -5,6 +5,7 @@ import logging
 import savepagenow
 from .models import Clip, Memento
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponseBadRequest
 logger = logging.getLogger(__name__)
@@ -93,3 +94,15 @@ def save(request):
 
     # Head back where the user started
     return redirect("/")
+
+
+def status(request):
+    context = {
+        'user_count': User.objects.count(),
+        'clip_count': Clip.objects.count(),
+        'memento_count': Memento.objects.count(),
+        'archiveorg_count': Memento.objects.filter(archive='archive.org').count(),
+        'archiveis_count': Memento.objects.filter(archive='archive.is').count(),
+        'webcitation_count': Memento.objects.filter(archive='webcitation.org').count(),
+    }
+    return render(request, "archive/status.html", context)

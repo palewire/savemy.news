@@ -1,0 +1,35 @@
+{% extends "archive/base.html" %}
+{% load staticfiles archive_tags humanize %}
+
+{% block content %}
+<article>
+    <table class="table table-sm table-responsive">
+        <tbody>
+            <tr>
+              <th>Users</th>
+              <td class="text-right">{{ user_count|intcomma }}</td>
+            </tr>
+          <tr>
+            <th>Clips</th>
+            <td class="text-right">{{ clip_count|intcomma }}</td>
+          </tr>
+          <tr>
+            <th>Mementos</th>
+            <td class="text-right">{{ memento_count|intcomma }}</td>
+          </tr>
+          <tr>
+            <th>archive.org</th>
+            <td class="text-right">{{ archiveorg_count|intcomma }}</td>
+          </tr>
+          <tr>
+            <th>archive.is</th>
+            <td class="text-right">{{ archiveis_count|intcomma }}</td>
+          </tr>
+          <tr>
+            <th>webcitation.org</th>
+            <td class="text-right">{{ webcitation_count|intcomma }}</td>
+          </tr>
+        </tbody>
+    </table>
+</article>
+{% endblock %}

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'social_django',
     'archive',
 ]
@@ -150,7 +151,7 @@ LOGGING = {
 
 # ENV specific settings
 try:
-    from settings_dev import *
+    from .settings_dev import *
     DEBUG = True
 except ImportError:
     DATABASES = {
