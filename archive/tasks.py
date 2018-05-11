@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 def is_memento(clip_id):
     clip = Clip.objects.get(id=clip_id)
     logger.debug("Archiving {} with archive.is".format(clip.url))
-    # from archivenow import archivenow
     try:
         is_url = archiveis.capture(clip.url)
         # is_url = archivenow.push(clip.url, "is")[0]
