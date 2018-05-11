@@ -8,6 +8,9 @@ logger = logging.getLogger(__name__)
 
 @task()
 def is_memento(clip_id):
+    """
+    Archive a clip with archive.is.
+    """
     clip = Clip.objects.get(id=clip_id)
     logger.debug("Archiving {} with archive.is".format(clip.url))
     try:
@@ -23,6 +26,9 @@ def is_memento(clip_id):
 
 @task()
 def wc_memento(clip_id):
+    """
+    Archive a clip with webcitation.
+    """
     clip = Clip.objects.get(id=clip_id)
     logger.debug("Archiving {} with webcitation".format(clip.url))
     try:
