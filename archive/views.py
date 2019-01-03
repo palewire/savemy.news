@@ -38,7 +38,7 @@ def download(request):
     response['Content-Disposition'] = 'attachment; filename="clips.csv"'
     writer = csv.writer(response)
     writer.writerow(['id', 'source_url', 'timestamp', 'archive_url', 'archive_url'])
-    clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
+    clip_list = Clip.objects.filter(user=user).prefetch_related("mementos")
     for clip in clip_list:
         row = [clip.id, clip.url, clip.timestamp]
         for m in clip.mementos.all():
