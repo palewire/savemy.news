@@ -12,14 +12,22 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
+    """
+    The homepage. Personalized if you're logged in.
+    """
     context = {'clip_list': None}
+    # If the user is logged in ...
     if request.user.is_authenticated():
+        # ... query their clips
         clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
         context['clip_list'] = clip_list
     return render(request, "archive/index.html", context)
 
 
 def download(request):
+    """
+    Lets logged in users download their clips.
+    """
     user = request.user
     if not user.is_authenticated():
         logger.debug("User not authenticated")
@@ -40,6 +48,9 @@ def download(request):
 
 
 def delete(request):
+    """
+    Lets logged in users delete clips.
+    """
     clip_id = request.POST.get("id", None)
     if not clip_id:
         logger.debug("No id")
@@ -67,6 +78,9 @@ def delete(request):
 
 
 def save(request):
+    """
+    Saves a URL with the Wayback Machine.
+    """
     # Verify there is a URL to save
     url = request.POST.get("url", None)
     if not url:
@@ -97,6 +111,9 @@ def save(request):
 
 
 def status(request):
+    """
+    Some stats about the site.
+    """
     context = {
         'user_count': User.objects.count(),
         'clip_count': Clip.objects.count(),
