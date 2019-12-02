@@ -2,10 +2,8 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.encoding import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
 class Memento(models.Model):
     timestamp = models.DateTimeField(
         db_index=True,
@@ -32,7 +30,6 @@ class Memento(models.Model):
         return self.url
 
 
-@python_2_unicode_compatible
 class Clip(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.URLField(max_length=1000)

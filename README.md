@@ -15,31 +15,20 @@ Requirements:
 
 Create a virtualenv to store the codebase.
 
-```bash
-# If you prefer virtualenvwrapper, pyenv, conda, whatever, use that here instead of course
-$ virtualenv savemy.news
-```
-
-Activate the virtualenv.
-
-```bash
-$ cd savemy.news
-$ . bin/activate
-```
-
 Clone the git repository from GitHub.
 
 ```bash
 # If you've made a fork, substitute in your URL
-$ git clone git@github.com:pastpages/savemy.news.git repo
+git clone git@github.com:pastpages/savemy.news.git
 ```
 
-Enter the project and install its dependencies.
+Move into the repository
 
 ```bash
-$ cd repo
-$ pip install -r requirements.txt
+cd savemy.news
 ```
+
+Install the dependencies.
 
 Create a copy of a local settings file for your development environment.
 

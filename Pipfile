@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+
+[packages]
+archiveis = "==0.0.9"
+celery = "==4.1.0"
+dj-database-url = "==0.4.2"
+gunicorn = "==19.7.1"
+pytz = ">=2017.3"
+redis = "==2.10.6"
+webcitation = "==0.0.2"
+whitenoise = "==4.1.4"
+Django = "==3.0rc1"
+social-auth-app-django = "==3.1.0"
+requests = "==2.22.0"
+savepagenow = "==0.0.13"
+python3-openid = "*"
+
+[requires]
+python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true

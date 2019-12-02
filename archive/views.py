@@ -17,7 +17,7 @@ def index(request):
     """
     context = {'clip_list': None}
     # If the user is logged in ...
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         # ... query their clips
         clip_list = Clip.objects.filter(user=request.user).prefetch_related("mementos")
         context['clip_list'] = clip_list
@@ -29,7 +29,7 @@ def download(request):
     Lets logged in users download their clips.
     """
     user = request.user
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         logger.debug("User not authenticated")
         return HttpResponseBadRequest("Bad request: User not authenticated")
 
@@ -57,7 +57,7 @@ def delete(request):
         return HttpResponseBadRequest("Bad request: Clip ID not found")
 
     user = request.user
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         logger.debug("User not authenticated")
         return HttpResponseBadRequest("Bad request: User not authenticated")
 
@@ -88,7 +88,7 @@ def save(request):
 
     # Verify the user is logged in
     user = request.user
-    if not user.is_authenticated():
+    if not user.is_authenticated:
         return HttpResponseBadRequest("Bad request")
 
     # Sent URL to Internet Archive

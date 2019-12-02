@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^delete/$', views.delete, name="delete"),
     url(r'^download/$', views.download, name="download"),
     url(r'^status/$', views.status, name="status"),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url('', include('social_django.urls', namespace='social'))
 ]
 
