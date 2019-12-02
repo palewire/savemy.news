@@ -19,7 +19,8 @@ ALLOWED_HOSTS = [
     'stark-waters-90707.herokuapp.com',
     'savemy.news',
     'www.savemy.news',
-    'localhost'
+    'localhost',
+    'save-my-news.herokuapp.com',
 ]
 
 
