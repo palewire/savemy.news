@@ -15,7 +15,7 @@ def ia_memento(clip_id):
     clip = Clip.objects.get(id=clip_id)
     logger.debug("Archiving {} with archive.org".format(clip.url))
     try:
-        ia_url, ia_captured = savepagenow.capture_or_cache(url)
+        ia_url, ia_captured = savepagenow.capture_or_cache(clip.url)
         ia_memento = Memento.objects.create(url=ia_url, archive="archive.org")
         logger.debug("Created {}".format(ia_memento))
         clip.mementos.add(ia_memento)
