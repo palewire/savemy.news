@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import csv
-import tasks
 import logging
 import savepagenow
+from .tasks import ia_memento
 from .models import Clip, Memento
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -100,7 +100,7 @@ def save(request):
     clip = Clip.objects.create(user=user, url=url)
 
     # Trigger an archiving task with archive.org
-    tasks.ia_memento.delay(clip.id)
+    ia_memento.delay(clip.id)
 
     # Head back where the user started
     return redirect("/")
