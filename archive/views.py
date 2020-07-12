@@ -93,18 +93,10 @@ def save(request):
 
     # Sent URL to Internet Archive
     # This is required so we throw an error if it fails
-    logger.debug("Archiving {} for {} to IA".format(url, user))
-    try:
-        ia_url, ia_captured = savepagenow.capture_or_cache(url)
-        logger.debug("Saving memento URL {}".format(ia_url))
-        ia_memento = Memento.objects.create(url=ia_url, archive="archive.org")
-    except Exception as e:
-        logger.error(e)
-        return HttpResponseBadRequest("Sorry. This link cannot be archived by archive.org.")
+    logger.debug("Archiving {} for {}".format(url, user))
 
     # Write it all to the database
     clip = Clip.objects.create(user=user, url=url)
-    clip.mementos.add(ia_memento)
 
     # Head back where the user started
     return redirect("/")

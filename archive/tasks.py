@@ -1,9 +1,27 @@
 import logging
 import archiveis
 import webcitation
+import savepagenow
 from celery.decorators import task
 from archive.models import Memento, Clip
 logger = logging.getLogger(__name__)
+
+
+@task()
+def ia_memento(clip_id):
+    """
+    Archive a clip with archive.org
+    """
+    clip = Clip.objects.get(id=clip_id)
+    logger.debug("Archiving {} with archive.org".format(clip.url))
+    try:
+        ia_url, ia_captured = savepagenow.capture_or_cache(url)
+        ia_memento = Memento.objects.create(url=ia_url, archive="archive.org")
+        logger.debug("Created {}".format(ia_memento))
+        clip.mementos.add(ia_memento)
+    except Exception as e:
+        logger.debug("archive.org failed")
+        logger.debug(e)
 
 
 @task()
@@ -15,7 +33,6 @@ def is_memento(clip_id):
     logger.debug("Archiving {} with archive.is".format(clip.url))
     try:
         is_url = archiveis.capture(clip.url)
-        # is_url = archivenow.push(clip.url, "is")[0]
         is_memento = Memento.objects.create(url=is_url, archive="archive.is")
         logger.debug("Created {}".format(is_memento))
         clip.mementos.add(is_memento)
