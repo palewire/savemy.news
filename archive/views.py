@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import csv
+import tasks
 import logging
 import savepagenow
 from .models import Clip, Memento
@@ -97,6 +98,9 @@ def save(request):
 
     # Write it all to the database
     clip = Clip.objects.create(user=user, url=url)
+
+    # Trigger an archiving task with archive.org
+    tasks.ia_memento.delay(clip.id)
 
     # Head back where the user started
     return redirect("/")
