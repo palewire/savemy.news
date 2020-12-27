@@ -12,5 +12,5 @@ runs:
 
     - id: sync-pipfile
       name: Sync pipfile
-      run: pipenv install --dev
+      run: pipenv sync
       shell: bash

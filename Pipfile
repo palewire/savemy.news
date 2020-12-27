@@ -3,9 +3,6 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-flake8 = "*"
-
 [packages]
 archiveis = "==0.0.9"
 celery = "==4.3.0"
@@ -21,6 +18,7 @@ requests = "==2.22.0"
 savepagenow = "==1.1.1"
 python3-openid = "*"
 psycopg2 = "==2.8.4"
+flake8 = "*"
 
 [requires]
 python_version = "3.6"
