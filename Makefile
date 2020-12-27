@@ -1,6 +1,6 @@
 test:
-	flake8 archive --exclude=archive/migrations/*
-	python manage.py test
+	pipenv run flake8 archive --exclude=archive/migrations/*
+	pipenv run python manage.py test
 
 loadbackup:
 	heroku pg:backups:download
