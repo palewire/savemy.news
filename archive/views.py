@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 import csv
 import logging
-import savepagenow
 from .tasks import ia_memento
 from .models import Clip, Memento
 from django.http import HttpResponse
