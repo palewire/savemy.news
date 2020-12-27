@@ -2,7 +2,7 @@
 
 A personal, permanent clipping service at [savemy.news](http://savemy.news/)
 
-[![Build Status](https://travis-ci.org/pastpages/savemy.news.svg?branch=master)](https://travis-ci.org/pastpages/savemy.news)
+![Tests](https://github.com/pastpages/savemy.news/workflows/Tests/badge.svg)
 
 ### Getting started
 
