@@ -44,6 +44,8 @@ class Clip(models.Model):
             return self.mementos.get(archive="archive.org").timestamp
         except Memento.DoesNotExist:
             return self.mementos.latest().timestamp
+        except Memento.MultipleObjectsReturned:
+            return self.mementos.filter(archive="archive.org")[0].timestamp
 
     @property
     def memento_count(self):
@@ -55,3 +57,5 @@ class Clip(models.Model):
             return self.mementos.get(archive="archive.org")
         except Memento.DoesNotExist:
             return None
+        except Memento.MultipleObjectsReturned:
+            return self.mementos.filter(archive="archive.org")[0].timestamp
