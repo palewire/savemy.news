@@ -12,16 +12,18 @@ pytz = ">=2017.3"
 redis = "==3.3.11"
 webcitation = "==0.0.2"
 whitenoise = "==4.1.4"
-Django = "==3.0.11"
+Django = "==3.2.2"
 social-auth-app-django = "==3.1.0"
 requests = "==2.22.0"
 savepagenow = "==1.1.1"
 python3-openid = "*"
-psycopg2 = "==2.8.4"
+psycopg2-binary = ">=2.8.4"
 flake8 = "*"
+jinja2 = ">=2.11.3"
+cryptography = ">=3.3.2"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
 
 [pipenv]
 allow_prereleases = true

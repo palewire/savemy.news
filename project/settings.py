@@ -153,6 +153,8 @@ LOGGING = {
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # ENV specific settings
 try:
     from .settings_dev import *
