@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Memento(models.Model):
@@ -42,8 +41,11 @@ class Clip(models.Model):
     def timestamp(self):
         try:
             return self.mementos.get(archive="archive.org").timestamp
-        except Memento.DoesNotExist:
-            return self.mementos.latest().timestamp
+        except ObjectDoesNotExist:
+            try:
+                return self.mementos.latest().timestamp
+            except ObjectDoesNotExist:
+                return None
         except Memento.MultipleObjectsReturned:
             return self.mementos.filter(archive="archive.org")[0].timestamp
 
@@ -55,7 +57,7 @@ class Clip(models.Model):
     def ia_memento(self):
         try:
             return self.mementos.get(archive="archive.org")
-        except Memento.DoesNotExist:
+        except ObjectDoesNotExist:
             return None
         except Memento.MultipleObjectsReturned:
             return self.mementos.filter(archive="archive.org")[0].timestamp
