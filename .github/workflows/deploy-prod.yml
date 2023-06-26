@@ -1,0 +1,106 @@
+name: Deploy to production
+
+concurrency:
+  group: deploy-prod-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published,]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - id: install-project-modules
+        name: Install project dependencies
+        run: npm ci --production
+
+      - id: install-action-modules
+        name: Install action dependencies
+        run: npm install archieml
+
+      - id: get-slug
+        name: Get slug
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            // import modules
+            const fs = require('fs');
+            const archieml = require('archieml');
+
+            // Read in the slug file
+            const meta = archieml.load(fs.readFileSync('_data/meta.aml', 'utf8'));
+
+            // Pull the slug
+            const slug = meta.slug.trim();
+            console.log(`slug -> ${slug}`);
+
+            // If we get this far, we're good to go.
+            return meta.slug;
+
+      - id: slack
+        name: Create Slack notification
+        uses: datadesk/notify-slack-on-build@v3
+        with:
+          slack-token: ${{ secrets.BAKER_BOT_SLACK_TOKEN }}
+          channel-name: ${{ secrets.BAKER_BOT_SLACK_CHANNEL_NAME }}
+          status: in_progress
+          url: http://baker-example-page-template-production.s3-website-us-east-1.amazonaws.com/${{ steps.get-slug.outputs.result }}/
+
+      - id: npm-build
+        name: Build project distribution
+        run: npm run build
+        env:
+          BAKER_PATH_PREFIX: ${{ steps.get-slug.outputs.result }}
+
+      - id: configure-aws
+        name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.BAKER_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.BAKER_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.BAKER_AWS_S3_PRODUCTION_REGION }}
+
+      - id: npm-deploy
+        name: Upload the prepared files
+        uses: datadesk/delivery-deploy-action@v1
+        with:
+          bucket: ${{ secrets.BAKER_AWS_S3_PRODUCTION_BUCKET }}
+          base-path: ${{ steps.get-slug.outputs.result }}
+          dir: _dist
+          should-cache: true
+          use-accelerate-endpoint: false
+          public: true
+
+      - name: Update Slack notification (success)
+        if: success()
+        uses: datadesk/notify-slack-on-build@v3
+        with:
+          slack-token: ${{ secrets.BAKER_BOT_SLACK_TOKEN }}
+          channel-id: ${{ steps.slack.outputs.channel-id }}
+          status: success
+          url: http://baker-example-page-template-production.s3-website-us-east-1.amazonaws.com/${{ steps.get-slug.outputs.result }}/
+          message-id: ${{ steps.slack.outputs.message-id }}
+
+      - name: Update Slack notification (failure)
+        if: failure()
+        uses: datadesk/notify-slack-on-build@v3
+        with:
+          slack-token: ${{ secrets.BAKER_BOT_SLACK_TOKEN }}
+          channel-id: ${{ steps.slack.outputs.channel-id }}
+          status: failure
+          url: http://baker-example-page-template-production.s3-website-us-east-1.amazonaws.com/${{ steps.get-slug.outputs.result }}/
+          message-id: ${{ steps.slack.outputs.message-id }}

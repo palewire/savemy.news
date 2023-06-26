@@ -1,0 +1,17 @@
+{
+  "bluprint": "^0.6.6",
+  "name": "baker-example-page",
+  "category": "baker",
+  "actions":  [
+    {
+      "action": "execute",
+      "cmds": [
+        ["npm", ["install"]]
+      ]
+    },
+    {
+      "action": "log",
+      "msg": "\n\n🏁 Finished creating your project.\n\nRun {green npm start} to open a test page.\n"
+    }
+  ]
+}
