@@ -10,39 +10,11 @@
 
 {% block content %}
 <article>
-  <header class="container">
-    <h1 class="headline">{{ meta.headline }}</h1>
-    <img src="{% static 'assets/images/baker.jpg' %}" alt="Baker logo" width=250 />
-    <div class="attribution">
-        {% set comma = joiner() %}
-        <p class="byline">
-          By {%- for author in meta.byline -%}
-          {% if not loop.last %}{{ comma() }}{% elif not loop.first %} and{% endif %} <span class="author" itemscope itemtype="http://schema.org/Person"><a itemprop="url" href="{{ author.url }}">{{ author.name }}</a></span>
-          {%- endfor -%}
-        </p>
-    </div>
-  </header>
-  <div class="container">
-    {% for p in copy.body %}
-        <p class="prose">{{ p.value }}</p>
-    {% endfor %}
-    <table class="table">
-        <caption>Wheat production</caption>
-        <thead>
-            <tr>
-                <th>Year</th>
-                <th>Yield</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for obj in example %}
-            <tr>
-                <td>{{ obj.year }}</td>
-                <td>{{ obj.wheat }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-  </div>
+<div class="container">
+  <p><b>Save My News</b> was a personal, permanent clipping service created by <a href="https://palewi.re/who-is-ben-welsh/">Ben Welsh</a>. It helped journalists and other users preserve more than 20,000 web pages in multiple online archives.</p>
+  <p>The site was discontinued in 2023 after 'Chief Twit' Elon Musk's management team banned thousands of outside applications reliant on Twitter's infrastructure.</p>
+  <p>No data has been lost. All the pages archived via this site remain secure in the Internet Archive, Archive.is and WebCite. From its inception Save My News was simply a passthrough to other archives.</p>
+  <p>If you would like a list of all the URLs you saved here, contact Ben at <a href="mailto:b@palewi.re">b@palewi.re</a>.</p>
+</div>
 </article>
 {% endblock content %}

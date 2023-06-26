@@ -1,25 +1,20 @@
 slug: baker-example-page-template
 
-site_name: Baker Examples
+site_name: Save My News
 locale: en_US
 
-headline: This is not a headline. Lorem ipsum dolor sit amet consectetur adipisicing
-
 [byline]
-name: This is not a name
-url: https://www.latimes.com/people/nobody
-
-name: This is not a name
-url: https://www.latimes.com/people/nobody
+name: Ben Welsh
+url: https://palewi.re/who-is-ben-welsh/
 []
 
-pub_date: 2099-12-31 23:58:00
+pub_date: 2023-06-26 15:00:00
 update_date:
 
-seo_headline: This is not a search-engine optimized headline
-seo_description: This is not a search-engine optimized description
+seo_headline: Save My News
+seo_description: Save My News was a personal, permanent clipping service created by Ben Welsh.
 
-social_headline: This is not a social headline
-social_description: This is not a social description
+social_headline: Save My News
+social_description: Save My News was a personal, permanent clipping service created by Ben Welsh.
 
-social_image: assets/images/baker.jpg
+social_image: assets/images/share.png
